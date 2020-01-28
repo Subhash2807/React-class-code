@@ -1,26 +1,29 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
+import Hello from './Components/Hello'
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+class App extends React.Component{
+  state = {
+    todos: [
+      {title: 'get up', isCompleted: false},
+      {title: 'Eat food', isCompleted: true},
+      {title: 'Go to bed', isCompleted: true}
+    ]
+  }
+
+  toggleCheck = (title) => this.setState({todos: this.state.todos.map((v, i) => title === v.title ? 
+      {title: v.title, isCompleted: !v.isCompleted} 
+      : 
+      v)})
+
+  abc  = () => this.state.todos.map((v, i) => <Hello key={i} toggleCheck={this.toggleCheck} todo={v}  />)
+  render(){
+    return (
+      <div className="App">
+        {this.abc()}
+      </div>
+    );
+  }
 }
 
 export default App;
